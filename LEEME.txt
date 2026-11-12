@@ -1,0 +1,25 @@
+WIREFRAME - SITIO WEB "RUTA TÁNGARA" (cliente ficticio)
+Electiva I - Diseño de aplicaciones web I
+Autoras: Wendy Jelitza Torres Jimenez y Sofi Yanina Chilatra Tapiero
+
+CONTENIDO
+  index.html   Proyecto completo del prototipo (estructura, estilos y navegación en un solo archivo).
+
+CÓMO ABRIRLO
+  Doble clic sobre index.html: se abre en cualquier navegador (Chrome, Edge, Firefox, Safari).
+  La barra oscura superior permite ir a cualquiera de las 7 pantallas.
+  Las fuentes (Lora y Poppins) se cargan desde Google Fonts, por lo que se recomienda tener conexión a internet.
+
+CÓMO EDITARLO
+  Abrir index.html con un editor de texto o de código (Bloc de notas, Visual Studio Code, etc.).
+  - Colores y fuentes: bloque ":root" al inicio de la etiqueta <style>.
+  - Pantallas: cada una está dentro de un <div class="screen" id="s-nombre">.
+  - Navegación: cada enlace usa href="#nombre" (por ejemplo, href="#salidas").
+
+PANTALLAS
+  1 Inicio (#inicio)                 5 Inscripción (#inscripcion)
+  2 Salidas (#salidas)               6 Inscripción confirmada (#inscripcion-confirmada)
+  3 Detalle de salida (#detalle)     7 Contacto (#contacto)
+  4 Guías (#guias)
+
+Ruta Tángara es un negocio ficticio. Los textos, precios y datos de contacto son marcadores de posición propios de un wireframe.

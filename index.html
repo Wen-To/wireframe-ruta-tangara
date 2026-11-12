@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe Ruta Tángara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Plan: wireframe de fidelidad media para un operador ficticio de avistamiento de aves.
+   Neutros gris-verdosos (bosque de niebla) + un solo acento verde profundo.
+   Contenedor de 1120 px, columnas de 2 y 3 módulos, espaciado en múltiplos de 8 px. */
+:root {
+  color-scheme: light;
+  --bg: #F3F5F4;          /* fondo general */
+  --surface: #FFFFFF;     /* tarjetas y campos */
+  --ink: #1E2A27;         /* texto principal */
+  --muted: #56625F;       /* texto secundario */
+  --line: #C3CCC9;        /* bordes y divisores */
+  --fill: #E1E7E5;        /* marcadores de imagen y texto */
+  --accent: #1F5C4D;      /* acción principal (verde) */
+  --accent-soft: #DFEEE8; /* realce suave del acento */
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Poppins", "Segoe UI", Arial, sans-serif;
+  --radius: 10px;
+  --wrap: 1120px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+}
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; }
+h1 { font-size: 40px; }
+h2 { font-size: 28px; }
+h3 { font-size: 19px; }
+p { margin: 0; }
+svg.ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Barra del prototipo ---------- */
+.proto { background: var(--ink); color: #fff; font-size: 13px; }
+.proto .wrap { display: flex; align-items: center; gap: 16px; padding-top: 8px; padding-bottom: 8px; }
+.proto strong { font-weight: 500; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.proto nav { display: flex; gap: 6px; overflow-x: auto; }
+.proto nav a { text-decoration: none; white-space: nowrap; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); color: #fff; }
+.proto nav a[aria-current="page"] { background: #fff; color: var(--ink); border-color: #fff; font-weight: 500; }
+
+/* ---------- Encabezado del sitio ---------- */
+.site-head { background: var(--surface); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 24px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+.logo { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-size: 10px; font-weight: 700; letter-spacing: .06em; }
+.brand span { font-family: var(--font-display); font-weight: 700; font-size: 20px; }
+.main-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.main-nav a { text-decoration: none; padding: 8px 14px; font-weight: 500; border-bottom: 3px solid transparent; }
+.main-nav a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- Componentes ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 10px 24px; border-radius: 999px; text-decoration: none;
+  font-weight: 500; font-size: 16px; border: 1.5px solid var(--accent);
+}
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.ghost { background: var(--surface); color: var(--accent); }
+.btn.block { width: 100%; }
+.btn.small { min-height: 40px; padding: 6px 18px; font-size: 14px; }
+.link { color: var(--accent); font-weight: 500; text-underline-offset: 3px; }
+.ph {
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--line) calc(50% - 1px), var(--line) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--line) calc(50% - 1px), var(--line) calc(50% + 1px), transparent calc(50% + 1px)),
+    var(--fill);
+  border: 1.5px solid var(--line); border-radius: var(--radius);
+  display: grid; place-items: center; min-height: 120px;
+}
+.ph span { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 10px; font-size: 12px; color: var(--muted); }
+.ln { display: block; height: 10px; border-radius: 5px; background: var(--fill); }
+.lines { display: grid; gap: 10px; }
+.card { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.price { font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.crumbs { font-size: 14px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { color: var(--accent); }
+section.block { padding: 48px 0; }
+section.block.tight { padding: 32px 0; }
+.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.head-row { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.badge-ic { width: 44px; height: 44px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; flex: none; }
+.cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 28px 32px; background: var(--accent-soft); border: 1.5px solid var(--accent); border-radius: var(--radius); }
+
+/* Inicio */
+.hero .grid2 { grid-template-columns: 1.05fr .95fr; }
+.hero .copy { display: grid; gap: 20px; justify-items: start; }
+.hero p { font-size: 18px; color: var(--muted); max-width: 44ch; }
+.hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero .ph { min-height: 320px; }
+.steps { counter-reset: paso; }
+.step { padding: 24px; display: grid; gap: 10px; align-content: start; }
+.step::before { counter-increment: paso; content: counter(paso); width: 40px; height: 40px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; }
+
+/* Tarjeta de salida */
+.tag { display: inline-block; justify-self: start; font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.trip { overflow: hidden; display: flex; flex-direction: column; }
+.trip .ph { border: 0; border-bottom: 1.5px solid var(--line); border-radius: 0; min-height: 160px; }
+.trip .body { padding: 16px; display: grid; gap: 8px; flex: 1; }
+.meta { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14px; color: var(--muted); }
+.meta li { display: flex; align-items: center; gap: 8px; }
+.meta svg.ic { width: 16px; height: 16px; }
+.trip .foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); }
+.price small { font-weight: 400; font-size: 12px; color: var(--muted); }
+
+/* Salidas */
+.toolbar { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 20px 0 24px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.chips b { font-size: 14px; font-weight: 500; margin-right: 4px; }
+.chip { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 500; }
+.chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.select { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 14px; color: var(--muted); font-size: 14px; }
+
+/* Detalle */
+.detail { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: start; margin-top: 24px; }
+.gallery .ph.main { min-height: 340px; }
+.thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+.thumbs .ph { min-height: 68px; }
+.thumbs .ph.on { border-color: var(--accent); border-width: 2.5px; }
+.info { display: grid; gap: 16px; justify-items: start; }
+.facts { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fact { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; padding: 12px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 8px; }
+.fact .badge-ic { width: 40px; height: 40px; }
+.fact small { display: block; color: var(--muted); font-size: 12px; }
+.fact strong { font-weight: 500; font-size: 14px; }
+.tabs { display: flex; gap: 4px; border-bottom: 1.5px solid var(--line); margin-bottom: 20px; }
+.tabs span { padding: 10px 18px; font-weight: 500; font-size: 15px; color: var(--muted); }
+.tabs span.on { color: var(--accent); border-bottom: 3px solid var(--accent); margin-bottom: -1.5px; }
+
+/* Guías */
+.guide { padding: 24px; display: grid; gap: 12px; justify-items: center; text-align: center; }
+.guide .ph { width: 112px; height: 112px; min-height: 0; border-radius: 50%; }
+.guide .lines { width: 100%; justify-items: center; }
+.pillars .card { padding: 24px; display: grid; gap: 12px; align-content: start; }
+
+/* Inscripción */
+.booking { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; align-items: start; margin-top: 24px; }
+.panel { padding: 24px; display: grid; gap: 18px; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: grid; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.label { font-size: 14px; font-weight: 500; }
+.input { min-height: 46px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); padding: 10px 14px; color: var(--muted); font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.input.area { min-height: 88px; align-items: start; }
+.opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.opt { min-width: 64px; text-align: center; padding: 10px 16px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); font-weight: 500; font-size: 14px; }
+.opt.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.radios { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.radio { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 14px; font-weight: 500; }
+.radio i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--muted); flex: none; }
+.radio.on { border-color: var(--accent); background: var(--accent-soft); }
+.radio.on i { border: 5px solid var(--accent); }
+.sum-row { display: flex; justify-content: space-between; gap: 16px; }
+.sum-row span:first-child { color: var(--muted); }
+.sum-row + .sum-row { border-top: 1px solid var(--line); padding-top: 12px; }
+.note { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: start; }
+.progress { list-style: none; padding: 0; display: flex; gap: 8px; align-items: center; margin: 16px 0 0; flex-wrap: wrap; font-size: 14px; font-weight: 500; }
+.progress li { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.progress li b { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; background: var(--surface); }
+.progress li.on { color: var(--ink); }
+.progress li.on b { background: var(--accent); border-color: var(--accent); color: #fff; }
+.progress li + li::before { content: ""; width: 40px; height: 1.5px; background: var(--line); }
+
+/* Confirmación */
+.done { max-width: 620px; margin: 24px auto 0; padding: 40px; display: grid; gap: 20px; justify-items: center; text-align: center; }
+.done .check { width: 72px; height: 72px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; }
+.done .check svg { width: 36px; height: 36px; stroke-width: 2.4; }
+.done .box { width: 100%; text-align: left; padding: 18px 20px; display: grid; gap: 12px; background: var(--bg); border: 1.5px solid var(--line); border-radius: var(--radius); }
+.done .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+/* Contacto */
+.contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: stretch; margin-top: 24px; }
+.chan { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: center; }
+.chan small { color: var(--muted); display: block; font-size: 14px; }
+.faq { display: grid; gap: 10px; }
+.faq div { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; font-weight: 500; }
+
+/* Pie */
+.site-foot { background: var(--ink); color: #fff; margin-top: 24px; }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr 1fr 1.3fr 1fr; gap: 32px; padding: 40px 0 28px; }
+.site-foot h3 { font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; }
+.site-foot a { color: #fff; text-underline-offset: 3px; }
+.site-foot .logo { border-color: #fff; }
+.site-foot p { font-size: 14px; opacity: .85; margin-top: 12px; max-width: 30ch; }
+.social { display: flex; gap: 10px; }
+.social span { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid #fff; display: grid; place-items: center; font-size: 11px; font-weight: 500; }
+.legal { border-top: 1px solid rgba(255,255,255,.25); padding: 14px 0; font-size: 12px; opacity: .85; }
+
+.screen { display: none; }
+.screen.on { display: block; }
+
+@media (max-width: 860px) {
+  h1 { font-size: 32px; } h2 { font-size: 24px; }
+  .grid3, .grid2, .hero .grid2, .booking, .contact, .detail, .facts { grid-template-columns: 1fr; }
+  .site-foot .cols { grid-template-columns: 1fr 1fr; }
+  .form, .radios { grid-template-columns: 1fr; }
+  .wrap { padding: 0 16px; }
+  .proto .wrap { flex-direction: column; align-items: stretch; gap: 8px; }
+}
+.picked { display: grid; grid-template-columns: 88px 1fr auto; gap: 16px; align-items: center; padding: 14px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; }
+.picked .ph { min-height: 64px; border-radius: 8px; }
+.sum-row.total { border-top: 1.5px solid var(--line); padding-top: 14px; font-weight: 700; font-size: 18px; }
+.sum-row.total span:first-child { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bino" viewBox="0 0 24 24"><circle cx="6.500" cy="15.500" r="3.500"/><circle cx="17.500" cy="15.500" r="3.500"/><path d="M10 15.500h4M4 13l2-8h3l1 5M20 13l-2-8h-3l-1 5M10 10h4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="15" rx="2"/><path d="M3.500 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.200 7-11a7 7 0 0 0-14 0c0 4.800 7 11 7 11z"/><circle cx="12" cy="10" r="2.500"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.200"/><path d="M3 20c0-3.300 2.700-6 6-6s6 2.700 6 6"/><path d="M16 5.200a3.200 3.200 0 0 1 0 5.600M18 14.500c1.800.9 3 2.900 3 5.500"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.500" width="10" height="19" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.500-3.200 7.800-8 9-4.800-1.200-8-4.500-8-9V6l8-3z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.500"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+</svg>
+
+<!-- Barra del prototipo: identifica la pantalla y permite saltar a cualquiera -->
+<div class="proto">
+  <div class="wrap">
+    <strong>Wireframe · Pantallas</strong>
+    <nav aria-label="Pantallas del prototipo" id="protoNav">
+      <a href="#inicio">1 Inicio</a>
+      <a href="#salidas">2 Salidas</a>
+      <a href="#detalle">3 Detalle de salida</a>
+      <a href="#guias">4 Guías</a>
+      <a href="#inscripcion">5 Inscripción</a>
+      <a href="#inscripcion-confirmada">6 Inscripción confirmada</a>
+      <a href="#contacto">7 Contacto</a>
+    </nav>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Ruta Tángara, ir al inicio">
+      <div class="logo">LOGO</div><span>Ruta Tángara</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal" id="mainNav">
+      <a href="#inicio">Inicio</a>
+      <a href="#salidas">Salidas</a>
+      <a href="#guias">Guías</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn primary small" href="#inscripcion"><svg class="ic"><use href="#i-bino"/></svg>Inscribirme</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1. INICIO ============ -->
+<div class="screen" id="s-inicio">
+  <section class="block hero">
+    <div class="wrap grid2">
+      <div class="copy">
+        <span class="eyebrow">Avistamiento de aves · Salidas guiadas</span>
+        <h1>Sal a conocer las aves que viven cerca de Bogotá</h1>
+        <p>Caminatas en grupos pequeños, con guía y binoculares, para quienes nunca han observado aves y para quienes ya llevan su lista.</p>
+        <div class="actions">
+          <a class="btn primary" href="#salidas">Ver próximas salidas</a>
+          <a class="btn ghost" href="#guias">Conocer a los guías</a>
+        </div>
+      </div>
+      <div class="ph"><span>Foto principal: grupo observando aves</span></div>
+    </div>
+  </section>
+
+  <section class="block band">
+    <div class="wrap">
+      <div class="head-row">
+        <div><span class="eyebrow">Calendario</span><h2>Próximas salidas</h2></div>
+        <a class="link" href="#salidas">Ver todas las salidas →</a>
+      </div>
+      <div class="grid3">
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Bosque de niebla</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Medio día</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Humedal al amanecer</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>3 horas</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Intermedio</span><h3>Páramo y frailejones</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Día completo</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head-row"><div><span class="eyebrow">Así de fácil</span><h2>¿Cómo participar?</h2></div></div>
+      <div class="grid3 steps">
+        <div class="card step"><h3>Elige una salida</h3><p class="muted">Revisa fecha, nivel, duración y cupos disponibles.</p></div>
+        <div class="card step"><h3>Inscríbete en línea</h3><p class="muted">Indica cuántas personas van y deja tus datos.</p></div>
+        <div class="card step"><h3>Prepárate para el día</h3><p class="muted">Recibe el punto de encuentro y la lista de qué llevar.</p></div>
+      </div>
+      <div class="cta" style="margin-top:32px">
+        <div><h2>¿Tienes dudas antes de inscribirte?</h2><p class="muted">Escríbenos o revisa las preguntas frecuentes.</p></div>
+        <a class="btn primary" href="#contacto"><svg class="ic"><use href="#i-chat"/></svg>Ir a contacto</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 2. SALIDAS ============ -->
+<div class="screen" id="s-salidas">
+  <section class="block tight">
+    <div class="wrap">
+      <div class="crumbs"><a href="#inicio">Inicio</a><span>/</span><span>Salidas</span></div>
+      <h1 style="margin-top:12px">Salidas de avistamiento</h1>
+      <p class="muted" style="margin-top:8px">6 salidas programadas.</p>
+      <div class="toolbar">
+        <div class="chips" aria-label="Filtro por nivel (solo representado)"><b>Nivel:</b><span class="chip on">Todos</span><span class="chip">Principiante</span><span class="chip">Intermedio</span><span class="chip">Avanzado</span></div>
+        <div class="select">Ordenar por: fecha más cercana<svg class="ic"><use href="#i-down"/></svg></div>
+      </div>
+      <div class="grid3">
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Bosque de niebla</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Medio día</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Humedal al amanecer</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>3 horas</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Intermedio</span><h3>Páramo y frailejones</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Día completo</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Jardín de colibríes</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>3 horas</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Intermedio</span><h3>Aves acuáticas del embalse</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Medio día</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Avanzado</span><h3>Ruta de aves endémicas</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Día completo</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 3. DETALLE DE SALIDA ============ -->
+<div class="screen" id="s-detalle">
+  <section class="block tight">
+    <div class="wrap">
+      <div class="crumbs"><a href="#inicio">Inicio</a><span>/</span><a href="#salidas">Salidas</a><span>/</span><span>Bosque de niebla</span></div>
+      <div class="detail">
+        <div class="gallery">
+          <div class="ph main"><span>Foto grande del lugar</span></div>
+          <div class="thumbs"><div class="ph on"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+        </div>
+        <div class="info">
+          <span class="tag">Principiante</span>
+          <h1>Bosque de niebla</h1>
+          <div class="lines" style="width:100%"><span class="ln" style="width:100%"></span><span class="ln" style="width:92%"></span><span class="ln" style="width:60%"></span></div>
+          <div class="facts">
+            <div class="fact"><div class="badge-ic"><svg class="ic"><use href="#i-cal"/></svg></div><div><small>Fecha</small><strong>dd / mm / aaaa</strong></div></div>
+            <div class="fact"><div class="badge-ic"><svg class="ic"><use href="#i-clock"/></svg></div><div><small>Duración</small><strong>Medio día</strong></div></div>
+            <div class="fact"><div class="badge-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><small>Punto de encuentro</small><strong>Por confirmar</strong></div></div>
+            <div class="fact"><div class="badge-ic"><svg class="ic"><use href="#i-users"/></svg></div><div><small>Cupos disponibles</small><strong>00 de 12</strong></div></div>
+          </div>
+          <span class="price" style="font-size:26px">$ 00.000 <small style="font-size:14px">/ persona</small></span>
+          <a class="btn primary block" href="#inscripcion"><svg class="ic"><use href="#i-bino"/></svg>Inscribirme en esta salida</a>
+          <a class="link" href="#salidas">← Ver otras salidas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="block tight">
+    <div class="wrap">
+      <div class="tabs"><span class="on">Itinerario</span><span>Qué llevar</span><span>Qué incluye</span><span>Aves que se pueden ver</span></div>
+      <div class="lines" style="max-width:720px"><span class="ln" style="width:100%"></span><span class="ln" style="width:96%"></span><span class="ln" style="width:88%"></span><span class="ln" style="width:45%"></span></div>
+    </div>
+  </section>
+  <section class="block band">
+    <div class="wrap">
+      <div class="head-row"><h2>Otras salidas</h2><a class="link" href="#salidas">Ver todas →</a></div>
+      <div class="grid3">
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Humedal al amanecer</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>3 horas</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Principiante</span><h3>Jardín de colibríes</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>3 horas</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+        <article class="card trip"><div class="ph"><span>Foto</span></div><div class="body"><span class="tag">Intermedio</span><h3>Páramo y frailejones</h3>
+          <ul class="meta"><li><svg class="ic"><use href="#i-cal"/></svg>Fecha: dd / mm</li><li><svg class="ic"><use href="#i-clock"/></svg>Día completo</li><li><svg class="ic"><use href="#i-users"/></svg>Cupos disponibles: 00</li></ul>
+          <div class="foot"><span class="price">$ 00.000 <small>/ persona</small></span><a class="btn ghost small" href="#detalle">Ver salida</a></div></div></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 4. GUÍAS ============ -->
+<div class="screen" id="s-guias">
+  <section class="block tight">
+    <div class="wrap">
+      <div class="crumbs"><a href="#inicio">Inicio</a><span>/</span><span>Guías</span></div>
+      <div class="grid2" style="margin-top:24px">
+        <div style="display:grid;gap:16px;justify-items:start">
+          <span class="eyebrow">Quiénes somos</span>
+          <h1>Guías que conocen cada sendero y cada canto</h1>
+          <div class="lines" style="width:100%"><span class="ln" style="width:100%"></span><span class="ln" style="width:95%"></span><span class="ln" style="width:98%"></span><span class="ln" style="width:55%"></span></div>
+        </div>
+        <div class="ph" style="min-height:260px"><span>Foto del equipo en campo</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="block band">
+    <div class="wrap">
+      <div class="head-row"><div><span class="eyebrow">El equipo</span><h2>Nuestros guías</h2></div></div>
+      <div class="grid3">
+        <div class="card guide"><div class="ph"></div><h3>Nombre del guía</h3><span class="tag" style="justify-self:center">Especialidad</span><div class="lines"><span class="ln" style="width:100%"></span><span class="ln" style="width:70%"></span></div></div>
+        <div class="card guide"><div class="ph"></div><h3>Nombre del guía</h3><span class="tag" style="justify-self:center">Especialidad</span><div class="lines"><span class="ln" style="width:100%"></span><span class="ln" style="width:70%"></span></div></div>
+        <div class="card guide"><div class="ph"></div><h3>Nombre del guía</h3><span class="tag" style="justify-self:center">Especialidad</span><div class="lines"><span class="ln" style="width:100%"></span><span class="ln" style="width:70%"></span></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="block">
+    <div class="wrap">
+      <div class="head-row"><div><span class="eyebrow">Cómo trabajamos</span><h2>Nuestros compromisos</h2></div></div>
+      <div class="grid3 pillars">
+        <div class="card"><div class="badge-ic"><svg class="ic"><use href="#i-users"/></svg></div><h3>Grupos pequeños</h3><div class="lines"><span class="ln"></span><span class="ln" style="width:75%"></span></div></div>
+        <div class="card"><div class="badge-ic"><svg class="ic"><use href="#i-leaf"/></svg></div><h3>Respeto por las aves</h3><div class="lines"><span class="ln"></span><span class="ln" style="width:75%"></span></div></div>
+        <div class="card"><div class="badge-ic"><svg class="ic"><use href="#i-shield"/></svg></div><h3>Salidas seguras</h3><div class="lines"><span class="ln"></span><span class="ln" style="width:75%"></span></div></div>
+      </div>
+      <div class="cta" style="margin-top:32px">
+        <div><h2>¿Listo para tu primera salida?</h2><p class="muted">Revisa el calendario y elige la que más te guste.</p></div>
+        <a class="btn primary" href="#salidas">Ver próximas salidas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 5. INSCRIPCIÓN ============ -->
+<div class="screen" id="s-inscripcion">
+  <section class="block tight">
+    <div class="wrap">
+      <div class="crumbs"><a href="#inicio">Inicio</a><span>/</span><a href="#salidas">Salidas</a><span>/</span><span>Inscripción</span></div>
+      <h1 style="margin-top:12px">Inscripción</h1>
+      <ol class="progress"><li class="on"><b>1</b>Datos de la inscripción</li><li><b>2</b>Inscripción confirmada</li></ol>
+      <div class="booking">
+        <div class="card panel">
+          <h2 style="font-size:22px">Salida elegida</h2>
+          <div class="picked"><div class="ph"></div><div><strong>Bosque de niebla</strong><ul class="meta" style="margin-top:4px"><li><svg class="ic"><use href="#i-cal"/></svg>dd / mm / aaaa · Medio día</li></ul></div><a class="link" href="#salidas" style="font-size:14px">Cambiar salida</a></div>
+          <div class="form">
+            <div class="field full"><span class="label">Número de participantes</span><div class="opts"><span class="opt">1</span><span class="opt on">2</span><span class="opt">3</span><span class="opt">4</span></div></div>
+            <div class="field full"><span class="label">¿Necesitan binoculares en préstamo?</span><div class="radios"><div class="radio on"><i></i>Sí, por favor</div><div class="radio"><i></i>No, llevamos los nuestros</div></div></div>
+          </div>
+          <h2 style="font-size:22px;margin-top:8px">Tus datos</h2>
+          <div class="form">
+            <div class="field full"><span class="label">Nombre completo</span><div class="input">Escribe tu nombre</div></div>
+            <div class="field"><span class="label">Celular</span><div class="input">300 000 0000</div></div>
+            <div class="field"><span class="label">Correo electrónico</span><div class="input">nombre@correo.com</div></div>
+            <div class="field full"><span class="label">Comentarios (opcional)</span><div class="input area">Ej.: es nuestra primera salida, viaja un menor de edad</div></div>
+          </div>
+        </div>
+        <aside class="card panel">
+          <h2 style="font-size:22px">Resumen</h2>
+          <div class="sum-row"><span>Salida</span><strong>Bosque de niebla</strong></div>
+          <div class="sum-row"><span>Participantes</span><strong>2</strong></div>
+          <div class="sum-row"><span>Valor por persona</span><strong>$ 00.000</strong></div>
+          <div class="sum-row total"><span>Total</span><span>$ 00.000</span></div>
+          <a class="btn primary block" href="#inscripcion-confirmada">Confirmar inscripción</a>
+          <p class="note"><svg class="ic"><use href="#i-info"/></svg>El pago se coordina por mensaje después de confirmar el cupo.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 6. INSCRIPCIÓN CONFIRMADA ============ -->
+<div class="screen" id="s-inscripcion-confirmada">
+  <section class="block">
+    <div class="wrap">
+      <ol class="progress" style="justify-content:center"><li class="on"><b>1</b>Datos de la inscripción</li><li class="on"><b>2</b>Inscripción confirmada</li></ol>
+      <div class="card done">
+        <div class="check"><svg class="ic"><use href="#i-check"/></svg></div>
+        <h1>¡Ya tienes tu cupo!</h1>
+        <p class="muted">Inscripción n.º 0000. Te enviaremos el punto de encuentro y la lista de qué llevar.</p>
+        <div class="box">
+          <div class="sum-row"><span>Salida</span><strong>Bosque de niebla</strong></div>
+          <div class="sum-row"><span>Fecha</span><strong>dd / mm / aaaa</strong></div>
+          <div class="sum-row"><span>Participantes</span><strong>2</strong></div>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#inicio">Volver al inicio</a>
+          <a class="btn ghost" href="#salidas">Ver más salidas</a>
+        </div>
+        <p class="note"><svg class="ic"><use href="#i-info"/></svg>Pantalla de ejemplo del prototipo: no se envían datos reales.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ 7. CONTACTO ============ -->
+<div class="screen" id="s-contacto">
+  <section class="block tight">
+    <div class="wrap">
+      <div class="crumbs"><a href="#inicio">Inicio</a><span>/</span><span>Contacto</span></div>
+      <h1 style="margin-top:12px">Contacto</h1>
+      <div class="contact">
+        <div class="card panel">
+          <h2 style="font-size:22px">Escríbenos</h2>
+          <div class="chan"><div class="badge-ic"><svg class="ic"><use href="#i-chat"/></svg></div><div><strong>WhatsApp</strong><small>300 000 0000</small></div></div>
+          <div class="chan"><div class="badge-ic"><svg class="ic"><use href="#i-mail"/></svg></div><div><strong>Correo</strong><small>hola@rutatangara.co</small></div></div>
+          <div class="chan"><div class="badge-ic"><svg class="ic"><use href="#i-clock"/></svg></div><div><strong>Horario de atención</strong><small>Días y horas de atención</small></div></div>
+          <div class="chan"><div class="badge-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><strong>Punto de encuentro habitual</strong><small>Dirección en Bogotá</small></div></div>
+          <a class="btn primary" href="#salidas" style="justify-self:start">Ver próximas salidas</a>
+        </div>
+        <div class="ph" style="min-height:360px"><span>Mapa del punto de encuentro</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="block band">
+    <div class="wrap">
+      <div class="head-row"><h2>Preguntas frecuentes</h2></div>
+      <div class="faq">
+        <div>¿Necesito experiencia o equipo propio?<svg class="ic"><use href="#i-plus"/></svg></div>
+        <div>¿Qué pasa si llueve el día de la salida?<svg class="ic"><use href="#i-plus"/></svg></div>
+        <div>¿Pueden participar niños?<svg class="ic"><use href="#i-plus"/></svg></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="#inicio"><div class="logo">LOGO</div><span>Ruta Tángara</span></a>
+        <p>Salidas guiadas de avistamiento de aves.</p>
+      </div>
+      <div><h3>Navegación</h3><ul><li><a href="#inicio">Inicio</a></li><li><a href="#salidas">Salidas</a></li><li><a href="#guias">Guías</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+      <div><h3>Contacto</h3><ul><li>WhatsApp: 300 000 0000</li><li>hola@rutatangara.co</li><li><a href="#contacto">Preguntas frecuentes</a></li></ul></div>
+      <div><h3>Síguenos</h3><div class="social"><span>IG</span><span>FB</span><span>YT</span></div></div>
+    </div>
+    <div class="legal">Prototipo tipo wireframe con fines académicos · Ruta Tángara es un negocio ficticio; los textos, precios y datos de contacto son marcadores de posición.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var screens = ['inicio', 'salidas', 'detalle', 'guias', 'inscripcion', 'inscripcion-confirmada', 'contacto'];
+  // Opción del menú principal que se resalta en cada pantalla
+  var section = { 'inicio': 'inicio', 'salidas': 'salidas', 'detalle': 'salidas', 'guias': 'guias', 'inscripcion': 'salidas', 'inscripcion-confirmada': 'salidas', 'contacto': 'contacto' };
+  var last = null;
+  function show() {
+    var name = (location.hash || '').replace('#', '');
+    if (screens.indexOf(name) === -1) name = 'inicio';
+    screens.forEach(function (s) {
+      document.getElementById('s-' + s).classList.toggle('on', s === name);
+    });
+    mark('protoNav', name);
+    mark('mainNav', section[name]);
+    if (name !== last) window.scrollTo(0, 0);
+    last = name;
+  }
+  function mark(navId, name) {
+    var links = document.getElementById(navId).querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].getAttribute('href') === '#' + name) links[i].setAttribute('aria-current', 'page');
+      else links[i].removeAttribute('aria-current');
+    }
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body>
+</html>
